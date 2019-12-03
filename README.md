@@ -2,9 +2,13 @@
 Photo tagging job for large scale final project
 
 ## Commands
-Start with nodemon:
+Start with node for production:
 ```
 npm start
+```
+Start with nodemon for development:
+```
+npm start-dev
 ```
 Build project for compatibility:
 ```
