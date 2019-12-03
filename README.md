@@ -1,2 +1,2 @@
 # photo-tagging-job
-Photo tagging job for large scale
+Photo tagging job for large scale final project

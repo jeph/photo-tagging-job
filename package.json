@@ -1,0 +1,25 @@
+{
+  "name": "photo-tagging-job",
+  "version": "1.0.0",
+  "description": "Photo tagging job for scalica",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeph/photo-tagging-job.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeph/photo-tagging-job/issues"
+  },
+  "homepage": "https://github.com/jeph/photo-tagging-job#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.582.0"
+  }
+}
