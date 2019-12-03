@@ -10,3 +10,5 @@ Build project for compatibility:
 ```
 npm run build
 ```
+
+This project is configured with ESLint. Please obey the ESLint rules!
