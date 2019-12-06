@@ -4,7 +4,7 @@
   "description": "Photo tagging job for scalica",
   "main": "src/app.js",
   "scripts": {
-    "start":  "babel src --out-dir build && node build/app.js",
+    "start": "babel src --out-dir build && node build/app.js",
     "start-dev": "nodemon --exec babel-node src/app.js",
     "build": "babel src --out-dir build"
   },
@@ -32,6 +32,13 @@
     "nodemon": "^2.0.1"
   },
   "dependencies": {
-    "aws-sdk": "^2.582.0"
+    "@grpc/proto-loader": "^0.5.3",
+    "@tensorflow/tfjs": "^1.4.0",
+    "@tensorflow/tfjs-node": "^1.4.0",
+    "aws-sdk": "^2.582.0",
+    "canvas": "^2.6.0",
+    "face-api.js": "^0.21.0",
+    "google-protobuf": "^3.11.1",
+    "grpc": "^1.24.2"
   }
 }

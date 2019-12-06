@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package facial_recognition;
+
+service FacialRecognizer {
+   rpc Detect(DetectionRequest) returns (DetectionResponse) {}
+}
+
+message DetectionRequest {
+   string img = 1;
+}
+
+message DetectionResponse {
+   int32 faces = 1;
+}
+
+
