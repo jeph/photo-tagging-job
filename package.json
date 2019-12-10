@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.5.3",
-    "aws-sdk": "^2.582.0",
+    "aws-sdk": "^2.586.0",
     "canvas": "^2.6.0",
     "cron": "^1.7.2",
     "face-api.js": "^0.21.0",

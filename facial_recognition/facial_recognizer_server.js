@@ -4,6 +4,7 @@ aws.config.loadFromPath('./config.json')
 const s3 = new aws.S3({ apiVersion: '2006-03-01', region: 'us-east-1' })
 const faceapi = require('face-api.js')
 const canvas = require('canvas')
+const fs = require('fs')
 
 const { Canvas, Image, ImageData } = canvas
 faceapi.env.monkeyPatch({ Canvas, Image, ImageData })
@@ -16,11 +17,19 @@ s3.listObjects({ Bucket }, async function (err, data) {
     await faceapi.nets.ssdMobilenetv1.loadFromDisk(MODEL_URL)
     for (let i = 0; i < data.Contents.length; i++) {
       const img = await canvas.loadImage(`https://scalica-photos.s3.amazonaws.com/${data.Contents[i].Key}`)
+      content = "Detections\n"
       const detections = await faceapi.detectAllFaces(img)
       if (detections && detections.length > 0) {
         // TODO database update
-        console.log(`Detected ${detections.length} faces`)
+        content += data.Contents[i].Key
+        content += `Deteced ${detection.length} faces\n`
       }
     }
+    fs.writeFile('/demo/detections.txt', content, (err) => {
+      if(err) {
+        console.error(err)
+        return
+      }
+    })
   }
 })
