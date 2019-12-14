@@ -15,14 +15,13 @@ s3.listObjects({ Bucket }, async function (err, data) {
     console.error(err, err.stack)
   } else {
     await faceapi.nets.ssdMobilenetv1.loadFromDisk(MODEL_URL)
-    content = "Detections\n"
+    let content = "Detections\n"
     for (let i = 0; i < data.Contents.length; i++) {
       const img = await canvas.loadImage(`https://scalica-photos.s3.amazonaws.com/${data.Contents[i].Key}`)
       const detections = await faceapi.detectAllFaces(img)
       if (detections && detections.length > 0) {
         // TODO database update
-        content += data.Contents[i].Key
-        content += ` Deteced ${detections.length} faces\n`
+        content += data.Contents[i].Key + ` Detected ${detections.length} faces\n`
       }
     }
     fs.writeFile('./detections.txt', content, (err) => {
