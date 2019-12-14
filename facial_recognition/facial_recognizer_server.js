@@ -1,6 +1,7 @@
 const MODEL_URL = __dirname + '/weights'
 const aws = require('aws-sdk')
 aws.config.loadFromPath('./config.json')
+const config = require('./config.js');
 const s3 = new aws.S3({ apiVersion: '2006-03-01', region: 'us-east-1' })
 const faceapi = require('face-api.js')
 const canvas = require('canvas')
@@ -17,14 +18,7 @@ const Bucket = 'scalica-photos'
 //   scanPhotos();
 // });
 
-const con = mysql.createConnection({
-  host: "ec2-3-17-149-190.us-east-2.compute.amazonaws.com",
-  port: '3000',
-  user: "leon",
-  password: "password",
-  database: "test-db"
-});
-
+const con = mysql.createConnection(config.databaseOptions);
 
 s3.listObjects({ Bucket }, async function (err, data) {
   if (err) {
@@ -44,6 +38,12 @@ s3.listObjects({ Bucket }, async function (err, data) {
             return;
           }
           console.log('Connection established');
+          // var sql = "INSERT INTO db (field1, field2) 
+          //            VALUES ('value', 'value')";
+          // con.query(sql, function (err, result) {
+          //   if (err) throw err;
+          //   console.log("1 record inserted");
+          // });
         });
 
         con.end((err) => {
