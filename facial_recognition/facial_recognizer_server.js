@@ -4,10 +4,27 @@ aws.config.loadFromPath('./config.json')
 const s3 = new aws.S3({ apiVersion: '2006-03-01', region: 'us-east-1' })
 const faceapi = require('face-api.js')
 const canvas = require('canvas')
+//const cron = require('node-cron')
+const mysql = require('mysql');
+//require('@tensorflow/tfjs-node');
 
 const { Canvas, Image, ImageData } = canvas
 faceapi.env.monkeyPatch({ Canvas, Image, ImageData })
 const Bucket = 'scalica-photos'
+
+// cron.schedule("* */30 * * * *", function() {
+//   console.log("running a task every 30 minutes");
+//   scanPhotos();
+// });
+
+const con = mysql.createConnection({
+  host: "ec2-3-17-149-190.us-east-2.compute.amazonaws.com",
+  port: '3000',
+  user: "leon",
+  password: "password",
+  database: "test-db"
+});
+
 
 s3.listObjects({ Bucket }, async function (err, data) {
   if (err) {
@@ -20,6 +37,20 @@ s3.listObjects({ Bucket }, async function (err, data) {
       if (detections && detections.length > 0) {
         // TODO database update
         console.log(`Detected ${detections.length} faces`)
+        
+        con.connect((err) => {
+          if(err){
+            console.log('Error connecting to Db');
+            return;
+          }
+          console.log('Connection established');
+        });
+
+        con.end((err) => {
+          // The connection is terminated gracefully
+          // Ensures all previously enqueued queries are still
+          // before sending a COM_QUIT packet to the MySQL server.
+        });
       }
     }
   }
