@@ -1,7 +1,18 @@
 const MODEL_URL = __dirname + '/weights'
 const aws = require('aws-sdk')
-aws.config.loadFromPath('./config.json')
-const dbConfig = require('../db-config')
+let dbConfig
+if (process.env.ISPROD) {
+  dbConfig = {
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: 'scalica'
+  }
+} else {
+  aws.config.loadFromPath('./config.json')
+  dbConfig = require('../db-config')
+}
+
 const s3 = new aws.S3({ apiVersion: '2006-03-01', region: 'us-east-1' })
 const faceapi = require('face-api.js')
 const canvas = require('canvas')
