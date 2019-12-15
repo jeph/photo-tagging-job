@@ -4,7 +4,7 @@
   "description": "Photo tagging job for scalica",
   "main": "src/app.js",
   "scripts": {
-    "start": "babel facial_recognition --out-dir build --copy-files && node build/facial_recognizer_server.js",
+    "start": "node build/facial_recognizer_server.js",
     "start-dev": "nodemon --exec babel-node facial_recognition/facial_recognizer_server.js",
     "build": "babel facial_recognition --out-dir build --copy-files"
   },
