@@ -27,7 +27,7 @@ new CronJob('* * * * *', function () {
         if (error) {
           console.log(error)
         } else {
-          const timeLastUpdated = new Date(results[0].last_scan_time).getTime() - 18000000
+          const timeLastUpdated = new Date(results[0].last_scan_time).getTime()
           const filteredData = data.Contents.filter((file) => {
             const fileTimeStamp = file.Key.match(/([^-]+)/g)[0]
             return timeLastUpdated < parseInt(fileTimeStamp)
