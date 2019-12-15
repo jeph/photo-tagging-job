@@ -1,3 +1,4 @@
+require('regenerator-runtime')
 const MODEL_URL = __dirname + '/weights'
 const aws = require('aws-sdk')
 
