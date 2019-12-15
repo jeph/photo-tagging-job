@@ -16,7 +16,7 @@ const Bucket = 'scalica-photos'
 
 const CronJob = require('cron').CronJob
 // eslint-disable-next-line no-new
-new CronJob('* * * * *', function () {
+new CronJob('*/30 * * * *', function () {
   s3.listObjects({ Bucket }, async function (err, data) {
     if (err) {
       console.log(err)
