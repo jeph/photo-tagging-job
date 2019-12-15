@@ -32,6 +32,7 @@
     "nodemon": "^2.0.1"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.7.0",
     "@grpc/proto-loader": "^0.5.3",
     "@tensorflow/tfjs-node": "^1.4.0",
     "aws-sdk": "^2.582.0",
