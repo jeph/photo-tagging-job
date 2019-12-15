@@ -1,7 +1,7 @@
 const MODEL_URL = __dirname + '/weights'
 const aws = require('aws-sdk')
 aws.config.loadFromPath('./config.json')
-const config = require('./config.js');
+const config = require('../config');
 const s3 = new aws.S3({ apiVersion: '2006-03-01', region: 'us-east-1' })
 const faceapi = require('face-api.js')
 const canvas = require('canvas')
@@ -25,33 +25,35 @@ s3.listObjects({ Bucket }, async function (err, data) {
     console.error(err, err.stack)
   } else {
     await faceapi.nets.ssdMobilenetv1.loadFromDisk(MODEL_URL)
+    con.connect((err) => {
+      if(err){
+        console.log('Error connecting to Db');
+        console.log(err);
+        return;
+      }
+      console.log('Connection established');
+      // const sql = `INSERT INTO scalica (field1, field2) 
+      //               VALUES ('value', 'value')`;
+      // con.query(sql, function (err, result) {
+      //   if (err) throw err;
+      //   console.log("1 record inserted");
+      // });
+    });
+    
     for (let i = 0; i < data.Contents.length; i++) {
       const img = await canvas.loadImage(`https://scalica-photos.s3.amazonaws.com/${data.Contents[i].Key}`)
       const detections = await faceapi.detectAllFaces(img)
       if (detections && detections.length > 0) {
-        // TODO database update
         console.log(`Detected ${detections.length} faces`)
         
-        con.connect((err) => {
-          if(err){
-            console.log('Error connecting to Db');
-            return;
-          }
-          console.log('Connection established');
-          // var sql = "INSERT INTO db (field1, field2) 
-          //            VALUES ('value', 'value')";
-          // con.query(sql, function (err, result) {
-          //   if (err) throw err;
-          //   console.log("1 record inserted");
-          // });
-        });
-
-        con.end((err) => {
-          // The connection is terminated gracefully
-          // Ensures all previously enqueued queries are still
-          // before sending a COM_QUIT packet to the MySQL server.
-        });
+        
       }
     }
+
+    con.end((err) => {
+      // The connection is terminated gracefully
+      // Ensures all previously enqueued queries are still
+      // before sending a COM_QUIT packet to the MySQL server.
+    });
   }
 })
