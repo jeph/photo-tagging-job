@@ -6,7 +6,7 @@
   "scripts": {
     "start": "babel facial_recognition --out-dir build --copy-files && ISPROD=yes node build/facial_recognizer_server.js",
     "start-dev": "nodemon --exec babel-node facial_recognition/facial_recognizer_server.js",
-    "build": "babel src --out-dir build"
+    "build": "babel facial_recognition --out-dir build --copy-files"
   },
   "repository": {
     "type": "git",
